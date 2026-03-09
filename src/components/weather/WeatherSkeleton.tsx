@@ -4,7 +4,6 @@ import { GlassCard } from './GlassCard';
 export function WeatherSkeleton() {
   return (
     <div className="space-y-6">
-      {/* Current weather skeleton */}
       <div className="text-center py-8">
         <Skeleton className="h-6 w-32 mx-auto mb-4 bg-white/20" />
         <Skeleton className="h-24 w-40 mx-auto mb-4 bg-white/20" />
@@ -12,7 +11,6 @@ export function WeatherSkeleton() {
         <Skeleton className="h-4 w-20 mx-auto bg-white/20" />
       </div>
 
-      {/* Hourly forecast skeleton */}
       <GlassCard>
         <div className="flex gap-4 overflow-hidden">
           {Array.from({ length: 6 }).map((_, i) => (
@@ -25,7 +23,6 @@ export function WeatherSkeleton() {
         </div>
       </GlassCard>
 
-      {/* Daily forecast skeleton */}
       <GlassCard>
         <div className="space-y-4">
           {Array.from({ length: 5 }).map((_, i) => (
@@ -39,7 +36,6 @@ export function WeatherSkeleton() {
         </div>
       </GlassCard>
 
-      {/* Metrics skeleton */}
       <div className="grid grid-cols-2 gap-4">
         {Array.from({ length: 4 }).map((_, i) => (
           <GlassCard key={i}>
