@@ -7,12 +7,12 @@ import { WeatherSkeleton } from "@/components/weather/WeatherSkeleton";
 import { useWeather } from "@/hooks/useWeather";
 
 const Index = () => {
-  const { data, loading, searchCity } = useWeather('Paris');
+  const { data, loading, searchCity } = useWeather('Antananarivo');
 
   return (
     <div className="min-h-screen gradient-sky">
-      <div className="container max-w-lg mx-auto px-4 py-6 pb-20">
-        <SearchLocation onSearch={searchCity} isLoading={loading} />
+      <div className="container  mx-auto px-4 py-6 pb-20">
+        <div className="max-w-lg mx-auto"><SearchLocation onSearch={searchCity} isLoading={loading}/></div>
         
         {loading ? (
           <WeatherSkeleton />
@@ -27,7 +27,7 @@ const Index = () => {
               low={data.current.low}
             />
 
-            <div className="space-y-4 mt-6">
+            <div className="flex flex-row space-x-4 md:space-y-4 md:mt-6">
               <HourlyForecast hours={data.hourly} />
               <DailyForecast days={data.daily} />
               <WeatherMetrics
