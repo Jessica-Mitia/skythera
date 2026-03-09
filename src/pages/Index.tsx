@@ -27,7 +27,7 @@ const Index = () => {
               low={data.current.low}
             />
 
-            <div className="flex flex-row space-x-4 md:space-y-4 md:mt-6">
+            <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 md:mt-6">
               <HourlyForecast hours={data.hourly} />
               <DailyForecast days={data.daily} />
               <WeatherMetrics
