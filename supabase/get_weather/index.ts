@@ -47,7 +47,7 @@ serve(async (req) => {
 
     console.log('Weather data fetched successfully for:', weatherData.name);
 
-    
+    // Map OpenWeather condition codes to our weather types
     const mapCondition = (weatherId: number): string => {
       if (weatherId >= 200 && weatherId < 300) return 'thunderstorm';
       if (weatherId >= 300 && weatherId < 400) return 'drizzle';
@@ -59,7 +59,7 @@ serve(async (req) => {
       return 'cloudy';
     };
 
-    
+    // Process current weather
     const current = {
       location: `${weatherData.name}, ${weatherData.sys.country}`,
       temperature: Math.round(weatherData.main.temp),
@@ -111,7 +111,7 @@ serve(async (req) => {
       low: Math.round(d.low),
     }));
 
-    
+    // Mark first day as "Today"
     if (daily.length > 0) {
       daily[0].day = 'Today';
     }
