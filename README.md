@@ -23,13 +23,13 @@ A modern and responsive weather application that displays real-time weather data
 1. Clone the repository
 
 ```
-git clone https://github.com/your-username/weatherscope.git
+git clone https://github.com/Jessica-Mitia/skythera.git
 ```
 
 2. Go to the project folder
 
 ```
-cd weatherscope
+cd skythera
 ```
 
 3. Install dependencies
