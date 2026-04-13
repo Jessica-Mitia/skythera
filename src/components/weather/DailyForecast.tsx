@@ -14,9 +14,9 @@ interface DailyForecastProps {
 }
 
 export const DailyForecast = ({ days }: DailyForecastProps) => {
-  const maxHigh = Math.max(...days.map((d) => d.high));
-  const minLow = Math.min(...days.map((d) => d.low));
-  const range = maxHigh - minLow;
+  const maxHigh = Math.max(...days.map((d) => d.high)).toFixed(0);
+  const minLow = Math.min(...days.map((d) => d.low)).toFixed(0);
+  const range = parseFloat(maxHigh) - parseFloat(minLow);
 
   return (
     <GlassCard className="p-0 overflow-hidden" hover={false}>
@@ -27,8 +27,8 @@ export const DailyForecast = ({ days }: DailyForecastProps) => {
       </div>
       <div className="divide-y divide-glass-border">
         {days.map((day, index) => {
-          const lowPos = ((day.low - minLow) / range) * 100;
-          const highPos = ((day.high - minLow) / range) * 100;
+          const lowPos = ((day.low - parseFloat(minLow)) / range) * 100;
+          const highPos = ((day.high - parseFloat(minLow)) / range) * 100;
           const barWidth = highPos - lowPos;
 
           return (
@@ -36,12 +36,12 @@ export const DailyForecast = ({ days }: DailyForecastProps) => {
               key={index}
               className="flex items-center justify-between p-4 hover:bg-glass-hover transition-colors"
             >
-              <span className="w-12 font-medium">{day.day}</span>
+              <span className="font-medium">{day.day}</span>
               
               <div className="flex items-center gap-2 w-16">
                 <WeatherIcon condition={day.condition} size="sm" />
                 {day.precipitation && (
-                  <span className="text-xs text-primary">{day.precipitation}%</span>
+                  <span className="text-xs text-primary">{day.precipitation.toFixed(0)}%</span>
                 )}
               </div>
               
