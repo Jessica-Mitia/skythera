@@ -7,13 +7,15 @@ import { WeatherSkeleton } from "@/components/weather/WeatherSkeleton";
 import { useWeather } from "@/hooks/useWeather";
 
 const Index = () => {
-  const { data, loading, searchCity } = useWeather('Antananarivo');
+  const { data, loading, searchCity } = useWeather("Antananarivo");
 
   return (
     <div className="min-h-screen gradient-sky">
       <div className="container  mx-auto px-4 py-6 pb-20">
-        <div className="max-w-lg mx-auto"><SearchLocation onSearch={searchCity} isLoading={loading}/></div>
-        
+        <div className="max-w-lg mx-auto">
+          <SearchLocation onSearch={searchCity} isLoading={loading} />
+        </div>
+
         {loading ? (
           <WeatherSkeleton />
         ) : data ? (
@@ -27,19 +29,23 @@ const Index = () => {
               low={data.current.low}
             />
 
-            <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 md:mt-6">
-              <HourlyForecast hours={data.hourly} />
-              <DailyForecast days={data.daily} />
-              <WeatherMetrics
-                humidity={data.current.humidity}
-                windSpeed={data.current.windSpeed}
-                windDirection={data.current.windDirection}
-                feelsLike={data.current.feelsLike}
-                visibility={data.current.visibility}
-                pressure={data.current.pressure}
-                sunrise={data.current.sunrise}
-                sunset={data.current.sunset}
-              />
+            <div>
+              <div className="flex flex-col space-y-4 mb-6 md:flex-row md:space-y-0 md:space-x-4 md:mt-6">
+                <div className="w-full md:w-1/2"><HourlyForecast hours={data.hourly} /></div>
+                <div className="w-full md:w-1/2"><DailyForecast days={data.daily} /></div>
+              </div>
+              <div>
+                <WeatherMetrics
+                  humidity={data.current.humidity}
+                  windSpeed={data.current.windSpeed}
+                  windDirection={data.current.windDirection}
+                  feelsLike={data.current.feelsLike}
+                  visibility={data.current.visibility}
+                  pressure={data.current.pressure}
+                  sunrise={data.current.sunrise}
+                  sunset={data.current.sunset}
+                />
+              </div>
             </div>
           </>
         ) : (

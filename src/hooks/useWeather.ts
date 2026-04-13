@@ -1,12 +1,18 @@
-import { useState, useEffect } from 'react';
-import { supabase } from '@/integrations/supabase/client';
-import { toast } from 'sonner';
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 export interface CurrentWeatherData {
   location: string;
   temperature: number;
   condition: string;
-  weatherType: 'sunny' | 'partly-cloudy' | 'cloudy' | 'rain' | 'drizzle' | 'snow' | 'thunderstorm';
+  weatherType:
+    | "sunny"
+    | "partly-cloudy"
+    | "cloudy"
+    | "rain"
+    | "drizzle"
+    | "snow"
+    | "thunderstorm";
   high: number;
   low: number;
   humidity: number;
@@ -22,14 +28,28 @@ export interface CurrentWeatherData {
 export interface HourlyData {
   time: string;
   temp: number;
-  condition: 'sunny' | 'partly-cloudy' | 'cloudy' | 'rain' | 'drizzle' | 'snow' | 'thunderstorm';
+  condition:
+    | "sunny"
+    | "partly-cloudy"
+    | "cloudy"
+    | "rain"
+    | "drizzle"
+    | "snow"
+    | "thunderstorm";
 }
 
 export interface DailyData {
   day: string;
   high: number;
   low: number;
-  condition: 'sunny' | 'partly-cloudy' | 'cloudy' | 'rain' | 'drizzle' | 'snow' | 'thunderstorm';
+  condition:
+    | "sunny"
+    | "partly-cloudy"
+    | "cloudy"
+    | "rain"
+    | "drizzle"
+    | "snow"
+    | "thunderstorm";
   precipitation?: number;
 }
 
@@ -39,7 +59,7 @@ export interface WeatherData {
   daily: DailyData[];
 }
 
-export function useWeather(initialCity: string = 'Antanarivo') {
+export function useWeather(initialCity: string = "Antanarivo") {
   const [data, setData] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -48,15 +68,17 @@ export function useWeather(initialCity: string = 'Antanarivo') {
   const fetchWeather = async (searchCity?: string) => {
     setLoading(true);
     setError(null);
-    
-    try {
-      const { data: weatherData, error: fetchError } = await supabase.functions.invoke('get-weather', {
-        body: { city: searchCity || city },
-      });
 
-      if (fetchError) {
-        throw new Error(fetchError.message);
+    try {
+      const response = await fetch(
+        `http://localhost:3000/weather?city=${encodeURIComponent(searchCity || city)}`,
+      );
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch weather data");
       }
+
+      const weatherData = await response.json();
 
       if (weatherData.error) {
         throw new Error(weatherData.error);
@@ -67,9 +89,9 @@ export function useWeather(initialCity: string = 'Antanarivo') {
         setCity(searchCity);
       }
     } catch (err: any) {
-      console.error('Weather fetch error:', err);
-      setError(err.message || 'Failed to fetch weather data');
-      toast.error('Failed to fetch weather data. Please try again.');
+      console.error("Weather fetch error:", err);
+      setError(err.message || "Failed to fetch weather data");
+      toast.error("Failed to fetch weather data. Please try again.");
     } finally {
       setLoading(false);
     }
